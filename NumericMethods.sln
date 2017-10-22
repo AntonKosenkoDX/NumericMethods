@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumericMethods", "ConsoleApp1\NumericMethods.csproj", "{5462B5B1-917D-40CE-AA89-09F96156D0FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELW.Library.Math", "ELW.Library.Math\ELW.Library.Math.csproj", "{0374C9F1-8508-421C-82A7-8D5DADB2B49A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5462B5B1-917D-40CE-AA89-09F96156D0FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5462B5B1-917D-40CE-AA89-09F96156D0FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5462B5B1-917D-40CE-AA89-09F96156D0FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5462B5B1-917D-40CE-AA89-09F96156D0FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0374C9F1-8508-421C-82A7-8D5DADB2B49A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0374C9F1-8508-421C-82A7-8D5DADB2B49A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0374C9F1-8508-421C-82A7-8D5DADB2B49A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0374C9F1-8508-421C-82A7-8D5DADB2B49A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A67EA645-9FCF-4F01-A2A5-6E2D9881E1B5}
+	EndGlobalSection
+EndGlobal
