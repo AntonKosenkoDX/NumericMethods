@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NumericMethods
+namespace NumericMethods.Methods
 {
     static class GaussSolve
     {

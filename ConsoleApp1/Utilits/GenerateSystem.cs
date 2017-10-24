@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NumericMethods
+namespace NumericMethods.Utilits
 {
     class SystemGenerator
     {

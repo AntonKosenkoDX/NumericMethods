@@ -1,4 +1,6 @@
 ﻿using System;
+using NumericMethods.Methods;
+using NumericMethods.Utilits;
 
 namespace NumericMethods
 {
@@ -9,6 +11,7 @@ namespace NumericMethods
         private const int MATRIX_SIZE = 5;
         private const double PRECISION = 1E-5;
         private static string FUNCTION = "(x^2)*atan(x)-" + GROUP_NUMBER.ToString();
+        private static string SFUNCTION = "(" + GROUP_NUMBER.ToString() + "/atan(x))^(1/2)";
 
         static void Main(string[] args)
         {
@@ -131,6 +134,18 @@ namespace NumericMethods
             {
                 var solution = DichotomyMethod.Calculate(FUNCTION, PRECISION);
                 Console.WriteLine("Solution of {0} via Dichotmy method is: {1}", FUNCTION, solution); 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.Read();
+            }//Dichotomy method 
+
+            Console.WriteLine("Lab7: Iteration method            \n-----------------------------------");
+            try
+            {
+                var solution = IterationMethod.Calculate(SFUNCTION, PRECISION);
+                Console.WriteLine("Solution of {0} via Iteration method is: {1}", FUNCTION, solution);
             }
             catch (Exception e)
             {

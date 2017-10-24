@@ -1,30 +1,30 @@
 ﻿using System;
 
-namespace NumericMethods
+namespace NumericMethods.Methods
 {
     static class SimpleIteration //http://orloff.am.tpu.ru/chisl_metod/Lab3/iter.htm
     {
-        public static Vector CalculateClassic(SquareMatrix smatrix, Vector freeElems, double allowResidual)
+        public static Vector CalculateClassic(SquareMatrix matrix, Vector freeElems, double allowResidual)
         {
-            if (smatrix.Size != freeElems.Size)
+            if (matrix.Size != freeElems.Size)
                 throw new Exception(
                     "In SimpleIteration.CalculateClassic: " +
                     "Size of matrix isn't equal size of free element's vector.");
 
-            var det = smatrix.GetDeterminant();
+            var det = matrix.GetDeterminant();
             if (det == 0)
                 throw new Exception("Determinant of matrix is 0. The system can't be solved.");
 
-            var invMatrix = smatrix.GetInvertibleMatrix();
-            var deltaMatrix = GetDeltaMatrix(smatrix.Size);
+            var invMatrix = matrix.GetInvertibleMatrix();
+            var deltaMatrix = GetDeltaMatrix(matrix.Size);
             var D = invMatrix - deltaMatrix;
             var X = new Vector(freeElems.Size);
 
-            var alpha = deltaMatrix * smatrix;
+            var alpha = deltaMatrix * matrix;
 
             var beta = D * freeElems;
 
-            while (MaxResidual(smatrix, freeElems, X) > allowResidual)
+            while (MaxResidual(matrix, freeElems, X) > allowResidual)
             {
                 X = alpha * X + beta;
             }

@@ -77,6 +77,19 @@ namespace NumericMethods
                 ((1.0 / GetDeterminant()) * GetAdjectiveMatrix())
                 .ToDoubleArray());
 
+        public bool isDiagonalDomination()
+        {
+            for (int i = 0; i < Size; i++)
+            { 
+                var Sum = 0.0;
+                for (int j = 0; j < Size; j++)
+                    Sum += Abs(matrix[i, j]);
+                Sum -= matrix[i, i];
+                if (Abs(matrix[i, i]) < Sum) return false;
+            }
+            return true;
+        }
+
         private int ToTriangleAndReturnSign(SquareMatrix tmatrix)
         {
             var size = tmatrix.Size;
@@ -119,5 +132,8 @@ namespace NumericMethods
 
             return -1;
         }
+
+        private double Abs(double x) => x > 0 ? x : -x;
+
     }
 }
