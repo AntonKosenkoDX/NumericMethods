@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace NumericMethods
+namespace NumericMethods.Objects
 {
-    class Vector : Matrix
+    public class Vector : Matrix
     {
         public int Size { get; }
 

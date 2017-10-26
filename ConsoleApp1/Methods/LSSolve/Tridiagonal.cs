@@ -1,9 +1,13 @@
-﻿using System;
+﻿using NumericMethods.Objects;
+using System;
 
 namespace NumericMethods.Methods
 {
-    static class Tridiagonal
+    public static class Tridiagonal
     {
+        public static Vector Calculate(LSystem system) =>
+            Calculate(system.Matrix, system.FreeElems);
+
         public static Vector Calculate(SquareMatrix matrix, Vector freeElems)
         {
             if (matrix.Size != freeElems.Size)

@@ -1,9 +1,13 @@
-﻿using System;
+﻿using NumericMethods.Objects;
+using System;
 
 namespace NumericMethods.Methods
 {
-    static class SimpleIteration //http://orloff.am.tpu.ru/chisl_metod/Lab3/iter.htm
+    public static class SimpleIteration //http://orloff.am.tpu.ru/chisl_metod/Lab3/iter.htm
     {
+        public static Vector CalculateClassic(LSystem system, double allowResidual) =>
+            CalculateClassic(system.Matrix, system.FreeElems, allowResidual);
+
         public static Vector CalculateClassic(SquareMatrix matrix, Vector freeElems, double allowResidual)
         {
             if (matrix.Size != freeElems.Size)
@@ -31,6 +35,9 @@ namespace NumericMethods.Methods
 
             return X;
         }
+
+        public static Vector CalculateZeidel(LSystem system, double allowResidual) =>
+            CalculateClassic(system.Matrix, system.FreeElems, allowResidual);
 
         public static Vector CalculateZeidel(SquareMatrix smatrix, Vector freeElems, double allowResidual)
         {

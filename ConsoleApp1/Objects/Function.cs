@@ -4,9 +4,9 @@ using ELW.Library.Math.Tools;
 using System;
 using System.Collections.Generic;
 
-namespace NumericMethods.Utilits
+namespace NumericMethods.Objects
 {
-    class Function
+    public class Function
     {
         private CompiledExpression compiledExpression;
 

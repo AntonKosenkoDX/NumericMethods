@@ -1,14 +1,13 @@
 ﻿using System;
 
-namespace NumericMethods
+namespace NumericMethods.Objects
 {
-    class Matrix
+    public class Matrix
     {
         public virtual int Rows { protected set; get; }
         public virtual int Columns { protected set; get; }
 
         protected double[,] matrix;
-        private int PRECISION = 5;
 
         virtual public double[,] ToDoubleArray() => matrix;
 
@@ -192,29 +191,18 @@ namespace NumericMethods
             return mul;
         }
 
-        public void SetPrintPrecision(int numOfSymbolsAfterPoint)
-        {
-            PRECISION = numOfSymbolsAfterPoint;
-        }
+        public void Print() => Print(5);
 
-        public void Print()
+        public void Print(int precision)
         {
-            PrintMatrix(matrix, PRECISION);
-        }
-
-        private void PrintMatrix(double[,] matrix, int precision)
-        {
-            var rows = matrix.GetUpperBound(0) + 1;
-            var columns = matrix.GetUpperBound(1) + 1;
-
             Console.WriteLine();
 
             var formatString = GetFormatString(precision);
-            for (int i = 0; i < rows; i++)
+            for (int i = 0; i < this.Rows; i++)
             {
-                for (int j = 0; j < columns; j++)
+                for (int j = 0; j < this.Columns; j++)
                 {
-                    Console.Write(formatString, matrix[i, j]);
+                    Console.Write(formatString, this[i, j]);
                     Console.Write(" ");
                 }
                 Console.WriteLine();

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5462B5B1-917D-40CE-AA89-09F96156D0FB}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>NumericMethods</RootNamespace>
-    <AssemblyName>NumericMethods</AssemblyName>
+    <ProjectGuid>{9E71A5A0-6BD0-4F5D-A38E-A2B2B003BBFA}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Lab6</RootNamespace>
+    <AssemblyName>Lab6</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,9 +31,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,28 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Methods\CharacterPolynom.cs" />
-    <Compile Include="Methods\NLESolve\DichotomyMethod.cs" />
-    <Compile Include="Methods\LSSolve\GaussSolve.cs" />
-    <Compile Include="Objects\Function.cs" />
-    <Compile Include="Objects\LSystem.cs" />
-    <Compile Include="Objects\Matrix.cs" />
-    <Compile Include="Objects\SquareMatrix.cs" />
-    <Compile Include="Objects\Vector.cs" />
-    <Compile Include="Methods\NLESolve\IterationMethod.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Methods\LSSolve\SimpleIteration.cs" />
-    <Compile Include="Methods\LSSolve\Tridiagonal.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ELW.Library.Math\ELW.Library.Math.csproj">
-      <Project>{0374C9F1-8508-421C-82A7-8D5DADB2B49A}</Project>
-      <Name>ELW.Library.Math</Name>
+    <ProjectReference Include="..\ConsoleApp1\NumericMethods.csproj">
+      <Project>{5462B5B1-917D-40CE-AA89-09F96156D0FB}</Project>
+      <Name>NumericMethods</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

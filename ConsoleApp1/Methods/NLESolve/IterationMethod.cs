@@ -1,9 +1,9 @@
-﻿using System;
-using NumericMethods.Utilits;
+﻿using NumericMethods.Objects;
+using System;
 
 namespace NumericMethods.Methods
 {
-    class IterationMethod
+    public static class IterationMethod
     {
         public static double Calculate(string expression, double allowResidual)
         {
@@ -26,7 +26,6 @@ namespace NumericMethods.Methods
                 Math.Pow(solutions[0] - solutions[1], 2) /
             (2 * solutions[1] - solutions[0] - solutions[2])
                 );
-
 
         private delegate double Func(double x);
 

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace NumericMethods.Utilits
+namespace NumericMethods.Objects
 {
-    class SystemGenerator
+    public class LSystem
     {
         private int N;
         private int k;
@@ -11,7 +11,7 @@ namespace NumericMethods.Utilits
         public SquareMatrix Matrix { private set; get; }
         public Vector FreeElems { private set; get; }
 
-        public SystemGenerator(int student_number, int group_number, int matrix_size)
+        public LSystem(int student_number, int group_number, int matrix_size)
         {
             N = student_number;
             k = group_number;
@@ -53,5 +53,36 @@ namespace NumericMethods.Utilits
             Matrix = new SquareMatrix(matrix);
             FreeElems = new Vector(vector);
         }
+
+        public Vector CalcResiduals(Vector solutions) =>
+            new Vector((Matrix * solutions - FreeElems).ToDoubleArray());
+
+        public void Print() => Print(5);
+
+        public void Print(int precision)
+        {
+            Console.WriteLine();
+
+            var formatString = GetFormatString(precision);
+            for (int i = 0; i < Matrix.Rows; i++)
+            {
+                for (int j = 0; j < Matrix.Columns; j++)
+                    Console.Write(formatString + " * x" + j + " + ", Matrix[i, j]);
+
+               Console.Write(" = " + formatString + "\n", FreeElems[i]);
+            }
+            Console.ReadLine();
+        }
+
+        private String GetFormatString(int precision)
+        {
+            String formatString = "{0,10 :0.";
+
+            for (int i = 0; i < precision; i++)
+                formatString += "#";
+
+            return formatString += "}";
+        }
+
     }
 }

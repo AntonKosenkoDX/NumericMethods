@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace NumericMethods
+namespace NumericMethods.Objects
 {
-    class SquareMatrix : Matrix
+    public class SquareMatrix : Matrix
     {
         public int Size { get; }
 
@@ -80,7 +80,7 @@ namespace NumericMethods
         public bool isDiagonalDomination()
         {
             for (int i = 0; i < Size; i++)
-            { 
+            {
                 var Sum = 0.0;
                 for (int j = 0; j < Size; j++)
                     Sum += Abs(matrix[i, j]);

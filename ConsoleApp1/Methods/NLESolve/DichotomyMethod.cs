@@ -1,37 +1,37 @@
-﻿using System;
-using NumericMethods.Utilits;
+﻿using NumericMethods.Objects;
+using System;
 
 namespace NumericMethods.Methods
 {
-    static class DichotomyMethod
+    public static class DichotomyMethod
     {
         public static double Calculate(string expression, double allowResidual)
         {
             Func f = new Function(expression).Calculate;
 
-            double x_0 = 0;
-            double x_1 = 0;
+            double leftPoint = 0;
+            double rightPoint = 0;
 
-            while(f(x_0) * f(x_1) >= 0)
+            while(f(leftPoint) * f(rightPoint) >= 0)
             {
-                x_0 -= 0.1;
-                x_1 += 0.1;
+                leftPoint -= 0.1;
+                rightPoint += 0.1;
             }
 
-            while (Math.Abs(x_1 - x_0) > allowResidual)
+            while (Math.Abs(rightPoint - leftPoint) > allowResidual)
             {
-                var x_2 = (x_0 + x_1) / 2.0;
+                var center = (leftPoint + rightPoint) / 2.0;
 
-                if (f(x_2) == 0)
-                    return x_2;
+                if (f(center) == 0)
+                    return center;
 
-                if (f(x_2) * f(x_0) > 0)
-                    x_0 = x_2;
+                if (f(center) * f(leftPoint) > 0)
+                    leftPoint = center;
                 else
-                    x_1 = x_2;
+                    rightPoint = center;
             }
 
-            return (x_0 + x_1) / 2.0;
+            return (leftPoint + rightPoint) / 2.0;
         }
 
         private delegate double Func(double x);

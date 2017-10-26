@@ -1,8 +1,9 @@
-﻿using System;
+﻿using NumericMethods.Objects;
+using System;
 
 namespace NumericMethods.Methods
 {
-    static class CharacterPolynom
+    public static class CharacterPolynomial
     {
         public static Vector Calculate(SquareMatrix matrix)
         {
