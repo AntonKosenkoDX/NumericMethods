@@ -9,7 +9,7 @@ namespace NumericMethods.Methods
         {
             Func f = new Function(expression).Calculate;
 
-            var solutions = new double[3] { 1, 0, 0};
+            var solutions = new double[3] { 1, 0, 0}; // x_n+1, x_n, x_n-1
 
             while(Residual(solutions) > allowResidual)
             {
