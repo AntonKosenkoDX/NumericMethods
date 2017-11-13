@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace NumericMethods.Objects
 {
@@ -65,9 +66,10 @@ namespace NumericMethods.Objects
         {
             var adj = new SquareMatrix(Size);
 
-            for (int i = 0; i < Size; i++)
+            Parallel.For(0, Size, Matrix.options, i => {
                 for (int j = 0; j < Size; j++)
                     adj[i, j] = Math.Pow(-1, i + j) * Exclude(i, j).GetDeterminant();
+            });
 
             return adj.GetTransposeMatrix();
         }
@@ -99,14 +101,13 @@ namespace NumericMethods.Objects
             {
                 sign *= SelectMainElement(tmatrix, i);
 
-                for (int j = i + 1; j < size; j++)
-                {
-                    if (tmatrix[j, i] == 0) continue;
+                Parallel.For(i + 1, size, Matrix.options, j => {
+                    if (tmatrix[j, i] == 0) return;
                     var cf = tmatrix[j, i] / tmatrix[i, i];
 
                     for (int k = 0; k < size; k++)
                         tmatrix[j, k] = tmatrix[j, k] - tmatrix[i, k] * cf;
-                }
+                });
             }
             return sign;
         }

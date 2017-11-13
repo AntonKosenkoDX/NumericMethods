@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace NumericMethods.Objects
 {
@@ -6,6 +7,19 @@ namespace NumericMethods.Objects
     {
         public virtual int Rows { protected set; get; }
         public virtual int Columns { protected set; get; }
+
+        private static int numberOfThreads = 1;
+
+        public static int GetNumberOfThreads() => numberOfThreads;
+
+        public static void SetNumberOfThreads(int value) {
+            options.MaxDegreeOfParallelism = value;
+            numberOfThreads = value;
+        }
+
+        public static ParallelOptions options =
+            new ParallelOptions { MaxDegreeOfParallelism = GetNumberOfThreads() };
+
 
         protected double[,] matrix;
 
@@ -41,18 +55,16 @@ namespace NumericMethods.Objects
 
             var _i = 0;
             var _j = 0;
-            for (int i = 0; i < Rows; i++)
-            {
-                if (i == row) continue;
-                for (int j = 0; j < Columns; j++)
-                {
+            Parallel.For(0, Rows, Matrix.options, i => {
+                if (i == row) return;
+                for (int j = 0; j < Columns; j++) {
                     if (j == column) continue;
                     tmp[_i, _j] = matrix[i, j];
                     _j++;
                 }
                 _i++;
                 _j = 0;
-            }
+            });
 
             return new Matrix(tmp);
         }
@@ -133,10 +145,10 @@ namespace NumericMethods.Objects
                 throw new FormatException("Matrices must have the same dimensions.");
 
             var sum = new Matrix(left.Rows, left.Columns);
-            for (int i = 0; i < left.Rows; i++)
+            Parallel.For(0, left.Rows, Matrix.options, i => {
                 for (int j = 0; j < left.Columns; j++)
                     sum.matrix[i, j] = left.matrix[i, j] + right.matrix[i, j];
-
+            });
             return sum;
         }
 
@@ -146,19 +158,20 @@ namespace NumericMethods.Objects
                 throw new FormatException("Matrices must have the same dimensions.");
 
             var sub = new Matrix(left.Rows, left.Columns);
-            for (int i = 0; i < left.Rows; i++)
+            Parallel.For(0, left.Rows, Matrix.options, i => {
                 for (int j = 0; j < left.Columns; j++)
                     sub.matrix[i, j] = left.matrix[i, j] - right.matrix[i, j];
-
+            });
             return sub;
         }
 
         public static Matrix operator *(int left, Matrix right)
         {
             var matrix = new Matrix(right.ToDoubleArray());
-            for (int i = 0; i < matrix.Rows; i++)
+            Parallel.For(0, matrix.Rows, Matrix.options, i => {
                 for (int j = 0; j < matrix.Columns; j++)
                     matrix.matrix[i, j] *= left;
+            });
 
             return matrix;
         }
@@ -166,9 +179,10 @@ namespace NumericMethods.Objects
         public static Matrix operator *(double left, Matrix right)
         {
             var matrix = new Matrix(right.ToDoubleArray());
-            for (int i = 0; i < matrix.Rows; i++)
+            Parallel.For(0, matrix.Rows, Matrix.options, i => {
                 for (int j = 0; j < matrix.Columns; j++)
                     matrix.matrix[i, j] *= left;
+            });
 
             return matrix;
         }
@@ -179,14 +193,14 @@ namespace NumericMethods.Objects
                 throw new NotSupportedException("Left's width must be equal right's height.");
 
             var mul = new Matrix(left.Rows, right.Columns);
-            for (int i = 0; i < left.Rows; i++)
-                for (int j = 0; j < right.Columns; j++)
-                {
+            Parallel.For(0, left.Rows, Matrix.options, i => {
+                for (int j = 0; j < right.Columns; j++) {
                     double temp = 0;
                     for (int k = 0; k < left.Columns; k++)
                         temp += left[i, k] * right[k, j];
                     mul.matrix[i, j] = temp;
                 }
+            });
 
             return mul;
         }
