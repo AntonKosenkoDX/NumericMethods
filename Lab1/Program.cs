@@ -21,6 +21,7 @@ namespace Lab1
                 Console.WriteLine("Our system:");
                 system.Print();
 
+                Matrix.SetNumberOfThreads(4);
                 var solution = GaussSolve.Calculate(system);
                 Console.WriteLine("Solutions via Gauss method:");
                 solution.Print();

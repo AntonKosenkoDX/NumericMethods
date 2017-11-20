@@ -6,7 +6,7 @@ namespace Lab2
 {
     class Program
     {
-        private const int STUDENT_NUMBER = 9;
+        private const int STUDENT_NUMBER = 15;
         private const int GROUP_NUMBER = 1;
         private const int MATRIX_SIZE = 5;
         private const double PRECISION = 1E-5;

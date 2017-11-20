@@ -1,5 +1,6 @@
 ﻿using NumericMethods.Objects;
 using System;
+using System.Threading.Tasks;
 
 namespace NumericMethods.Methods
 {
@@ -36,16 +37,16 @@ namespace NumericMethods.Methods
             {
                 SelectMainElement(matrix, freeElems, i);
 
-                for (int j = i + 1; j < size; j++)
-                {
-                    if (matrix[j, i] == 0) continue;
+                Parallel.For(i + 1, size, Matrix.options, j => {
+
+                    if (matrix[j, i] == 0) return;
                     var cf = matrix[j, i] / matrix[i, i];
 
                     for (int k = 0; k < size; k++)
                         matrix[j, k] -= matrix[i, k] * cf;
 
                     freeElems[j] -= freeElems[i] * cf;
-                }
+                });
             }
         }
 

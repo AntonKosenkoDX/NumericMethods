@@ -109,12 +109,12 @@ namespace NumericMethods.Objects
             if (index >= Columns || index < 0)
                 throw new Exception("Can't get column.");
 
-            var row = new Vector(Rows);
+            var column = new Vector(Rows);
 
-            for (int i = 0; i < row.Size; i++)
-                row[i] = matrix[i, index];
+            for (int i = 0; i < column.Size; i++)
+                column[i] = matrix[i, index];
 
-            return row;
+            return column;
         }
 
         public void SetColumn(Vector vector, int index)
