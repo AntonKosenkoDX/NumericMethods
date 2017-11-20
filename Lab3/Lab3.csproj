@@ -69,7 +69,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleApp1\NumericMethods.csproj">
+    <ProjectReference Include="..\NumericMethods\NumericMethods.csproj">
       <Project>{5462B5B1-917D-40CE-AA89-09F96156D0FB}</Project>
       <Name>NumericMethods</Name>
     </ProjectReference>
