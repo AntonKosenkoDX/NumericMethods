@@ -77,17 +77,20 @@ namespace NumericMethods.Objects
             return new PowerSeries(subArray);
         }
 
-        public void Print() {
+        public void Print() => Print(5);
+
+        public void Print(int precision) {
             bool isWriteBefore = false;
+            string formatString = GetFormatString(precision);
             for(int index = coeffs.Length - 1; index >= 0; index--) {
                 if (coeffs[index] == 0)
                     continue;
                 else if (coeffs[index] < 0)
-                    Console.Write("- {0}", Math.Abs(coeffs[index]));
+                    Console.Write("- " + formatString, Math.Abs(coeffs[index]));
                 else if (isWriteBefore)
-                    Console.Write("+ {0}", coeffs[index]);
+                    Console.Write("+ " + formatString, coeffs[index]);
                 else
-                    Console.Write("{0}", coeffs[index]);
+                    Console.Write(formatString, coeffs[index]);
 
                 if (index > 0)
                     Console.Write("x^{0} ", index);
@@ -100,5 +103,14 @@ namespace NumericMethods.Objects
         public double[] GetCoeffs() => coeffs;
 
         public void SetCoeff(double value, int index) => coeffs[index] = value;
+
+        private String GetFormatString(int precision) {
+            String formatString = "{0:0.";
+
+            for (int i = 0; i < precision; i++)
+                formatString += "#";
+
+            return formatString += "}";
+        }
     }
 }
