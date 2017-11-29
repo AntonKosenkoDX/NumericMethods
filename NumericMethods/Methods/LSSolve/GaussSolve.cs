@@ -6,12 +6,12 @@ namespace NumericMethods.Methods
 {
     public static class GaussSolve
     {
-        public static Vector Calculate(LSystem system) =>
+        public static VectorColumn Calculate(LSystem system) =>
             Calculate(system.Matrix, system.FreeElems);
 
-        public static Vector Calculate(SquareMatrix matrix, Vector freeElems)
+        public static VectorColumn Calculate(SquareMatrix matrix, VectorColumn freeElems)
         {
-            if (matrix.Size != freeElems.Size)
+            if (matrix.Size != freeElems.Length)
                 throw new Exception(
                     "In GaussSolve.Calculate: " +
                     "Size of matrix isn't equal size of free element's vector.");
@@ -23,13 +23,13 @@ namespace NumericMethods.Methods
                 Console.WriteLine("The system is poorly conditioned, solutions can not be calculated accurately.");
 
             var _matrix = new SquareMatrix(matrix.ToDoubleArray());
-            var _freeElems = new Vector(freeElems.ToDoubleArray());
+            var _freeElems = new VectorColumn(freeElems.ToDoubleArray());
 
             ToTriangle(_matrix, _freeElems);
             return Reverce(_matrix, _freeElems);
         }
 
-        private static void ToTriangle(SquareMatrix matrix, Vector freeElems)
+        private static void ToTriangle(SquareMatrix matrix, VectorColumn freeElems)
         {
             var size = matrix.Size; 
 
@@ -50,7 +50,7 @@ namespace NumericMethods.Methods
             }
         }
 
-        private static void SelectMainElement(SquareMatrix matrix, Vector freeElems, int pos)
+        private static void SelectMainElement(SquareMatrix matrix, VectorColumn freeElems, int pos)
         {
             var maxrow = pos;
             var size = matrix.Size;
@@ -76,10 +76,10 @@ namespace NumericMethods.Methods
             return;
         }
 
-        private static Vector Reverce(SquareMatrix triangleMatrix, Vector freeElems)
+        private static VectorColumn Reverce(SquareMatrix triangleMatrix, VectorColumn freeElems)
         {
             var size = triangleMatrix.Size;
-            var solutions = new Vector(size);
+            var solutions = new VectorColumn(size);
 
             for (int i = size - 1; i >= 0; i--)
             {

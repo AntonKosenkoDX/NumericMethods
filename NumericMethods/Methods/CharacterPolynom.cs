@@ -5,8 +5,10 @@ namespace NumericMethods.Methods
 {
     public static class CharacterPolynomial
     {
-        public static Vector Calculate(SquareMatrix matrix)
-        {
+        public static VectorColumn Calculate(SquareMatrix matrix){
+            if (matrix == null)
+                throw new ArgumentNullException("matrix", "Matrix can not be null.");
+
             var Y = new SquareMatrix(matrix.Size);
             Y[0, Y.Size - 1] = 1;
 
@@ -21,12 +23,14 @@ namespace NumericMethods.Methods
             return GaussSolve.Calculate(Y, y);
         }
 
-        public static void Print(Vector polyCoeffs)
-        {
-            Console.Write("lambda^{0} - ", polyCoeffs.Size);
-            for (int i = polyCoeffs.Size; i > 1; i--)
-                Console.Write("{0} * lambda^{1} - ", polyCoeffs[polyCoeffs.Size - i], i - 1);
-            Console.Write(polyCoeffs[polyCoeffs.Size - 1]);
+        public static void Print(AbstractVector polyCoeffs){
+            if (polyCoeffs == null)
+                throw new ArgumentNullException("polyCoeffs", "Vector can not be null.");
+
+            Console.Write("lambda^{0} - ", polyCoeffs.Length);
+            for (int i = polyCoeffs.Length; i > 1; i--)
+                Console.Write("{0} * lambda^{1} - ", polyCoeffs[polyCoeffs.Length - i], i - 1);
+            Console.Write(polyCoeffs[polyCoeffs.Length - 1]);
             Console.WriteLine();
         }
     }

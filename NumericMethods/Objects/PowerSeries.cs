@@ -8,24 +8,39 @@ namespace NumericMethods.Objects
 {
     public class PowerSeries
     {
-        private double[] coeffs { get; set; }
+        private VectorRow coeffs { get; set; }
 
-        public PowerSeries(double[] coeffs) => this.coeffs = coeffs.ToArray();
+        public int Length { get => coeffs.Length; } 
 
-        public PowerSeries(int maxPower) => this.coeffs = new double[maxPower + 1];
+        public int MaxPower { get => Length - 1; }
+
+        public PowerSeries(double[] coeffs) => this.coeffs = new VectorRow(coeffs);
+
+        public PowerSeries(int maxPower) => this.coeffs = new VectorRow(maxPower + 1);
 
         public double Calculate(double argument) {
-            int counter = 0;
             double sum = 0;
-            foreach (double cf in coeffs) 
-                sum += cf * Math.Pow(argument, counter++);
+
+            for (int i = 0; i < coeffs.Length; i++)
+                sum += coeffs[i] * Math.Pow(argument, i);
 
             return sum;
         }
 
+        public PowerSeries FindDerivative() {
+            if (coeffs.Length == 1)
+                return new PowerSeries(new double[1] { 0 });
+
+            PowerSeries derivate = new PowerSeries(this.MaxPower - 1);
+            for (int i = 0; i < derivate.Length; i++)
+                derivate[i] = (i + 1) * coeffs[i + 1];
+
+            return derivate;
+        }
+
         public static PowerSeries operator *(PowerSeries left, PowerSeries right) {
-            double[] leftArray = left.GetCoeffs();
-            double[] rigthArray = right.GetCoeffs();
+            double[] leftArray = left.GetCoeffs().ToDoubleArray();
+            double[] rigthArray = right.GetCoeffs().ToDoubleArray();
             double[] mulArray = new double[rigthArray.Length + leftArray.Length - 1];
 
             Parallel.For (0, leftArray.Length, leftIndex => {
@@ -37,7 +52,7 @@ namespace NumericMethods.Objects
         } 
 
         public static PowerSeries operator *(double left, PowerSeries right) {
-            double[] rightArray = right.GetCoeffs();
+            double[] rightArray = right.GetCoeffs().ToDoubleArray();
             double[] mulArray = new double[rightArray.Length];
 
             for (int i = 0; i < rightArray.Length; i++)
@@ -49,9 +64,12 @@ namespace NumericMethods.Objects
         public static PowerSeries operator *(PowerSeries left, double right) =>
             right * left;
 
+        public static PowerSeries operator /(PowerSeries left, double right) =>
+            left * (1.0 / right);
+
         public static PowerSeries operator +(PowerSeries left, PowerSeries right) {
-            double[] leftArray = left.GetCoeffs();
-            double[] rigthArray = right.GetCoeffs();
+            double[] leftArray = left.GetCoeffs().ToDoubleArray();
+            double[] rigthArray = right.GetCoeffs().ToDoubleArray();
             double[] sumArray = new double[Math.Max(leftArray.Length, rigthArray.Length)];
 
             for (int leftIndex = 0; leftIndex < leftArray.Length; leftIndex++)
@@ -64,8 +82,8 @@ namespace NumericMethods.Objects
         }
 
         public static PowerSeries operator -(PowerSeries left, PowerSeries right) {
-            double[] leftArray = left.GetCoeffs();
-            double[] rigthArray = right.GetCoeffs();
+            double[] leftArray = left.GetCoeffs().ToDoubleArray();
+            double[] rigthArray = right.GetCoeffs().ToDoubleArray();
             double[] subArray = new double[Math.Max(leftArray.Length, rigthArray.Length)];
 
             for (int leftIndex = 0; leftIndex < leftArray.Length; leftIndex++)
@@ -76,6 +94,21 @@ namespace NumericMethods.Objects
 
             return new PowerSeries(subArray);
         }
+
+        public static PowerSeries operator +(PowerSeries left, double right) {
+            double[] sumArray = left.GetCoeffs().ToDoubleArray();
+            sumArray[0] += right;
+            return new PowerSeries(sumArray);
+        }
+
+        public static PowerSeries operator +(double left, PowerSeries right) =>
+            right + left;
+
+        public static PowerSeries operator -(PowerSeries left, double right) =>
+            left + (-right);
+
+        public static PowerSeries operator -(double left, PowerSeries right) =>
+            (-1) * right + left;
 
         public void Print() => Print(5);
 
@@ -100,7 +133,12 @@ namespace NumericMethods.Objects
             Console.ReadLine();
         }
 
-        public double[] GetCoeffs() => coeffs;
+        public double this[int power]{
+            set => SetCoeff(value, power);
+            get => coeffs[power];
+        }
+
+        public VectorRow GetCoeffs() => coeffs;
 
         public void SetCoeff(double value, int index) => coeffs[index] = value;
 

@@ -21,14 +21,16 @@ namespace Lab1
                 Console.WriteLine("Our system:");
                 system.Print();
 
+                Console.WriteLine(system.Matrix.ToString());
+
                 Matrix.SetNumberOfThreads(4);
                 var solution = GaussSolve.Calculate(system);
                 Console.WriteLine("Solutions via Gauss method:");
-                solution.Print();
+                solution.Print(-1);
 
                 Console.WriteLine("Residuals: ");
                 system.CalcResiduals(solution).
-                    Print(15);
+                    Print(-1);
             }
             catch (Exception e)
             {

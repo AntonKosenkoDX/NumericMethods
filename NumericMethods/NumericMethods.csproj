@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>ExtendedDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -67,13 +68,16 @@
     <Compile Include="Methods\CharacterPolynom.cs" />
     <Compile Include="Methods\NLESolve\DichotomyMethod.cs" />
     <Compile Include="Methods\LSSolve\GaussSolve.cs" />
+    <Compile Include="Objects\AbstractVector.cs" />
     <Compile Include="Objects\Function.cs" />
     <Compile Include="Objects\LSystem.cs" />
     <Compile Include="Objects\Matrix.cs" />
     <Compile Include="Objects\PowerSeries.cs" />
+    <Compile Include="Methods\Approximation\CubicSpline.cs" />
     <Compile Include="Objects\SquareMatrix.cs" />
-    <Compile Include="Objects\Vector.cs" />
     <Compile Include="Methods\NLESolve\IterationMethod.cs" />
+    <Compile Include="Objects\VectorColumn.cs" />
+    <Compile Include="Objects\VectorRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Methods\LSSolve\SimpleIteration.cs" />
     <Compile Include="Methods\LSSolve\Tridiagonal.cs" />
@@ -87,6 +91,5 @@
       <Name>ELW.Library.Math</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

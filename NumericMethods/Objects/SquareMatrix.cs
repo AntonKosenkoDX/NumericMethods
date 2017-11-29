@@ -40,27 +40,14 @@ namespace NumericMethods.Objects
             return new SquareMatrix(transposeMatrix);
         }
 
-        new public SquareMatrix Exclude(int row, int column)
-        {
-            var tmp = new double[Rows - 1, Columns - 1];
+        new public SquareMatrix IncludeRow(VectorRow vector, int index) =>
+            new Matrix(this.matrix).IncludeRow(vector, index).ToSquareMatrix();
 
-            var _i = 0;
-            var _j = 0;
-            for (int i = 0; i < Rows; i++)
-            {
-                if (i == row) continue;
-                for (int j = 0; j < Columns; j++)
-                {
-                    if (j == column) continue;
-                    tmp[_i, _j] = matrix[i, j];
-                    _j++;
-                }
-                _i++;
-                _j = 0;
-            }
+        new public SquareMatrix IncludeColumn(VectorColumn vector, int index) =>
+            new Matrix(this.matrix).IncludeColumn(vector, index).ToSquareMatrix();
 
-            return new SquareMatrix(tmp);
-        }
+        new public SquareMatrix Exclude(int row, int column) =>
+            new Matrix(this.matrix).Exclude(row, column).ToSquareMatrix();
 
         public SquareMatrix GetAdjectiveMatrix()
         {

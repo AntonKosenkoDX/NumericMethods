@@ -5,12 +5,12 @@ namespace NumericMethods.Methods
 {
     public static class SimpleIteration //http://orloff.am.tpu.ru/chisl_metod/Lab3/iter.htm
     {
-        public static Vector CalculateClassic(LSystem system, double allowResidual) =>
+        public static VectorColumn CalculateClassic(LSystem system, double allowResidual) =>
             CalculateClassic(system.Matrix, system.FreeElems, allowResidual);
 
-        public static Vector CalculateClassic(SquareMatrix matrix, Vector freeElems, double allowResidual)
+        public static VectorColumn CalculateClassic(SquareMatrix matrix, VectorColumn freeElems, double allowResidual)
         {
-            if (matrix.Size != freeElems.Size)
+            if (matrix.Size != freeElems.Length)
                 throw new Exception(
                     "In SimpleIteration.CalculateClassic: " +
                     "Size of matrix isn't equal size of free element's vector.");
@@ -22,7 +22,7 @@ namespace NumericMethods.Methods
             var invMatrix = matrix.GetInvertibleMatrix();
             var deltaMatrix = GetDeltaMatrix(matrix.Size);
             var D = invMatrix - deltaMatrix;
-            var X = new Vector(freeElems.Size);
+            var X = new VectorColumn(freeElems.Length);
 
             var alpha = deltaMatrix * matrix;
 
@@ -36,12 +36,12 @@ namespace NumericMethods.Methods
             return X;
         }
 
-        public static Vector CalculateZeidel(LSystem system, double allowResidual) =>
+        public static VectorColumn CalculateZeidel(LSystem system, double allowResidual) =>
             CalculateClassic(system.Matrix, system.FreeElems, allowResidual);
 
-        public static Vector CalculateZeidel(SquareMatrix smatrix, Vector freeElems, double allowResidual)
+        public static VectorColumn CalculateZeidel(SquareMatrix smatrix, VectorColumn freeElems, double allowResidual)
         {
-            if (smatrix.Size != freeElems.Size)
+            if (smatrix.Size != freeElems.Length)
                 throw new Exception(
                     "In SimpleIteration.CalculateZeidel: " +
                     "Size of matrix isn't equal size of free element's vector.");
@@ -53,7 +53,7 @@ namespace NumericMethods.Methods
             var invMatrix = smatrix.GetInvertibleMatrix();
             var deltaMatrix = GetDeltaMatrix(smatrix.Size);
             var D = invMatrix - deltaMatrix;
-            var X = new Vector(freeElems.Size);
+            var X = new VectorColumn(freeElems.Length);
 
             var alpha = deltaMatrix * smatrix;
 
@@ -61,10 +61,10 @@ namespace NumericMethods.Methods
 
             while (MaxResidual(smatrix, freeElems, X) > allowResidual)
             {
-                for (int i = 0; i < X.Size; i++)
+                for (int i = 0; i < X.Length; i++)
                 {
                     var buf = 0.0;
-                    for (int j = 0; j < X.Size; j++) buf += alpha[i, j] * X[j];
+                    for (int j = 0; j < X.Length; j++) buf += alpha[i, j] * X[j];
                     X[i] = buf + beta[i];
                 }
             }
@@ -72,13 +72,13 @@ namespace NumericMethods.Methods
             return X;
         }
 
-        private static double MaxResidual(Matrix matrix, Vector freeElems, Vector solutions) => 
-            Max(new Vector((matrix * solutions - freeElems).ToDoubleArray()));
+        private static double MaxResidual(Matrix matrix, VectorColumn freeElems, VectorColumn solutions) => 
+            Max(new VectorColumn((matrix * solutions - freeElems).ToDoubleArray()));
 
-        private static double Max(Vector vector)
+        private static double Max(VectorColumn vector)
         {
             var max = Math.Abs(vector[0]);
-            for (int i = 0; i < vector.Size; i++)
+            for (int i = 0; i < vector.Length; i++)
                 if (Math.Abs(vector[i]) > max)
                     max = Math.Abs(vector[i]);
             return max;
