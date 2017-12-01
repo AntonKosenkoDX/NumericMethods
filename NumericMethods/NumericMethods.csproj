@@ -74,6 +74,7 @@
     <Compile Include="Objects\Matrix.cs" />
     <Compile Include="Objects\PowerSeries.cs" />
     <Compile Include="Methods\Approximation\CubicSpline.cs" />
+    <Compile Include="Objects\Spline.cs" />
     <Compile Include="Objects\SquareMatrix.cs" />
     <Compile Include="Methods\NLESolve\IterationMethod.cs" />
     <Compile Include="Objects\VectorColumn.cs" />

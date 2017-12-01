@@ -18,6 +18,7 @@ namespace NumericMethods.Methods
 
             return Calculate(xy);
         }
+
         public static PowerSeries Calculate(double[,] xy) {
             if (xy.GetUpperBound(0) != 1)
                 throw new FormatException("Array of values must contain values only for two variables.");

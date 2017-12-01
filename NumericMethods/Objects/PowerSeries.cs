@@ -112,25 +112,31 @@ namespace NumericMethods.Objects
 
         public void Print() => Print(5);
 
-        public void Print(int precision) {
+        public void Print(int precision) => 
+            Console.WriteLine(this.ToString(precision));
+
+        public override string ToString() => this.ToString(5);
+
+        public string ToString(int precision) {
             bool isWriteBefore = false;
+            string outstring = "";
             string formatString = GetFormatString(precision);
             for(int index = coeffs.Length - 1; index >= 0; index--) {
                 if (coeffs[index] == 0)
                     continue;
                 else if (coeffs[index] < 0)
-                    Console.Write("- " + formatString, Math.Abs(coeffs[index]));
+                    outstring += String.Format("- " + formatString, Math.Abs(coeffs[index]));
                 else if (isWriteBefore)
-                    Console.Write("+ " + formatString, coeffs[index]);
+                    outstring += String.Format("+ " + formatString, coeffs[index]);
                 else
-                    Console.Write(formatString, coeffs[index]);
+                    outstring += String.Format(formatString, coeffs[index]);
 
                 if (index > 0)
-                    Console.Write("x^{0} ", index);
+                    outstring += String.Format("x^{0} ", index);
 
                 isWriteBefore = true;
             }
-            Console.ReadLine();
+            return outstring;
         }
 
         public double this[int power]{
