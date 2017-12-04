@@ -30,6 +30,13 @@ namespace NumericMethods.Objects
             this.Data = data;
         }
 
+        public double Calculate(double x) {
+            for (int i = 0; i < Data.Length; i++)
+                if (x >= Data[i].LowerBound && x <= Data[i].UpperBound)
+                    return Data[i].polynom.Calculate(x);
+            throw new ArgumentOutOfRangeException();
+        }
+
         public void Print() {
             for (int i = 0; i < this.Data.Length; i++)
                 Console.WriteLine(

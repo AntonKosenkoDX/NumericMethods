@@ -72,6 +72,7 @@
     <Compile Include="Objects\Function.cs" />
     <Compile Include="Objects\LSystem.cs" />
     <Compile Include="Objects\Matrix.cs" />
+    <Compile Include="Objects\Point.cs" />
     <Compile Include="Objects\PowerSeries.cs" />
     <Compile Include="Methods\Approximation\CubicSpline.cs" />
     <Compile Include="Objects\Spline.cs" />
